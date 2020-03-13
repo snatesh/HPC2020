@@ -110,7 +110,7 @@ void junk_data ( )
   return;
 }
 
-/* What went wrong and how did we fix it?
+/* What went wrong, and how did we fix it?
     * 1) We print uninitialized array entries at LINE 104 (for i = 2,5..9)
     *   - FIX: Skip the uninitialized entries in the cout statement
         -      OR just initialize all entries of the array to i at LINE 83 (not done here) 

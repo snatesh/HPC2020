@@ -87,7 +87,7 @@ void f ( int n )
   return;
 }
 
-/* What went wrong and how did we fix it?
+/* What went wrong, and how did we fix it?
     * 1) We want n+1 entries of Fibonacci, but x was allocated for only n entries.
     *   - FIX: at LINE 72, we called malloc() with the correct number of entries 
     * 2) One should NEVER use malloc and delete on the same pointer. 
