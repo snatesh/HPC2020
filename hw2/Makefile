@@ -4,7 +4,7 @@ CFLAGS=-march=native -O2 -fopenmp -I. -DNOPRINT -Wall
 
 
 all: val_test01_solved val_test02_solved MMult1 omp_solved2 \
-			omp_solved3  omp_solved4  omp_solved5 omp_solved6 \
+      omp_solved3  omp_solved4  omp_solved5 omp_solved6 \
       jacobi2D-omp gs2D-omp
 
 val_test01_solved: val_test01_solved.cpp
