@@ -44,12 +44,12 @@ printf("Sum = %f\n",sum);
 }
 
 /* What went wrong, and how did we fix it?
-		* 1) The program did not compile because we tried using a reduction on the variable
-		*		 <sum>, which is private given its declaration in the function <dotprod>. Reduction
-		*    variables must be shared (so the reduction can occur at the end of the parallel region)
-    *   - FIX: I changed the prototype of <dotprod> to use reference semantics. Then,
-		*          I can pass in the shared variable <sum> to the function <dotprod> at Line 40 
-		*          as a reference, enabling the use of a reduction on it at Line 22. Note,
-	  *          I also removed the private declaration of <sum> at Line 19.
-	  *   - NOTE: This solution will not work with older C++ compilers.
+  * 1) The program did not compile because we tried using a reduction on the variable
+  *    <sum>, which is private given its declaration in the function <dotprod>. Reduction
+  *    variables must be shared (so the reduction can occur at the end of the parallel region)
+  *   - FIX: I changed the prototype of <dotprod> to use reference semantics. Then,
+  *          I can pass in the shared variable <sum> to the function <dotprod> at Line 40 
+  *          as a reference, enabling the use of a reduction on it at Line 22. Note,
+  *          I also removed the private declaration of <sum> at Line 19.
+  *   - NOTE: This solution will not work with older C++ compilers.
 */
