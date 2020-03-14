@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#ifdef _OPENMP
 #include <omp.h>
-
+#endif
 // matrix vector product, Ax = b
 void matvec(double* A, double* x, double* b, int N)
 {
