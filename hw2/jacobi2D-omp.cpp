@@ -51,9 +51,10 @@ double Jacobi(double* u, double* A, double* f, int N, int maxit)
     matvec(A,u,Au,N);
     it += 1;
   }
+  resid = residual(f,Au,N);
   aligned_free(Au);
   aligned_free(u1);
-  return residual(f,Au,N);
+  return resid;
 }
 
 

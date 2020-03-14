@@ -58,8 +58,9 @@ double Gauss_Seidel(double* u, double* A, double* f, int N, int maxit)
     matvec(A,u,Au,N);
     it += 1;
   }
+  resid = residual(f,Au,N);
   aligned_free(Au);
-  return residual(f,Au,N);
+  return resid;
 }
 
 int main(int argc, char* argv[])
