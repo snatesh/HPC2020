@@ -74,11 +74,11 @@ omp_init_lock(&lockb);
 }
 
 /* What went wrong, and how did we fix it?
-		* 1) The use of locks here is wrong. A lock enforces that no other thread can
-		*    get the locked resource until the thread that has the lock gets it AND
-		*    releases the lock. No one can take a cookie from the cookie jar while
-		*    someone else is reaching in for a cookie.
-    *   - FIX: Make sure the thread in section1 releases locka after setting it, and
-		*          do the same for lockb. Similarly, the thread in section2 must release
-		*          lockb after setting it, and do the same for locka. 
+    * 1) The use of locks here is wrong. A lock enforces that no other thread can
+    *    get the locked resource until the thread that has the lock gets it AND
+    *    releases the lock. No one can take a cookie from the cookie jar while
+    *    someone else is reaching in for a cookie.
+    *    - FIX: Make sure the thread in section1 releases locka after setting it, and
+    *           do the same for lockb. Similarly, the thread in section2 must release
+    *           lockb after setting it, and do the same for locka. 
 */
