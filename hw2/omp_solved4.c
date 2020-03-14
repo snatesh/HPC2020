@@ -39,11 +39,10 @@ double a[N][N];
 }
 
 /* What went wrong, and how did we fix it?
-		* 1) The memory required for the 2D array <a>, which is private to each thread,
-		*	   exceeds the memory limit for the thread stack.  
-    *   - FIX: Decrease the macro variable <N> (done here), or increase OMP_STACKSIZE. 
-	  *		-			 The latter solution might also require one to mess with ulimit (on linux).
-		*
-    *   - NOTE: While this removes the segfault, valgrind will still find at least one error 
+    * 1) The memory required for the 2D array <a>, which is private to each thread,
+    *    exceeds the memory limit for the thread stack.  
+    *    - FIX: Decrease the macro variable <N> (done here), or increase OMP_STACKSIZE. 
+    *    - The latter solution might also require one to mess with ulimit (on linux).
+    *    - NOTE: While this removes the segfault, valgrind will still find at least one error 
 */
 

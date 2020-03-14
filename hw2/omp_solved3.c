@@ -90,12 +90,11 @@ void print_results(float array[N], int tid, int section)
  
  
 /* What went wrong, and how did we fix it?
-		* 1) The function <print_results> is called in each of the two sections. 
-		*		 Each section is operated on by a single thread. Since the <print_results>
-		*		 function has a barrier directive, which waits for ALL threads before
-		*		 proceeding, the execution hangs as the threads not assigned to a section
-		*		 never reach the barrier. Note, there will not be an error if we only use
-		*		 2 threads.
-    *   - FIX: Remove the barrier at Line 86.
-		
+    * 1) The function <print_results> is called in each of the two sections. 
+    *    Each section is operated on by a single thread. Since the <print_results>
+    *    function has a barrier directive, which waits for ALL threads before
+    *    proceeding, the execution hangs as the threads not assigned to a section
+    *    never reach the barrier. Note, there will not be an error if we only use
+    *    2 threads.
+    *    - FIX: Remove the barrier at Line 86.
 */
