@@ -51,4 +51,5 @@ printf("Sum = %f\n",sum);
 		*          I can pass in the shared variable <sum> to the function <dotprod> at Line 40 
 		*          as a reference, enabling the use of a reduction on it at Line 22. Note,
 	  *          I also removed the private declaration of <sum> at Line 19.
+	  *   - NOTE: This solution will not work with older C++ compilers.
 */

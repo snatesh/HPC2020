@@ -7,7 +7,7 @@
 #endif
 #include "utils.h"
 
-#define BLOCK_SIZE 16
+#define BLOCK_SIZE 64
 
 // Note: matrices are stored in column major order; i.e. the array elements in
 // the (m x n) matrix C are stored in the sequence: {C_00, C_10, ..., C_m0,
@@ -26,46 +26,8 @@ void MMult0(long m, long n, long k, double *a, double *b, double *c) {
   }
 }
 
-// * Using MMult0 as a reference, implement MMult1 and try to rearrange loops to
-// maximize performance. Measure performance for different loop arrangements and
-// try to reason why you get the best performance for a particular order?
-//
-//
-// * You will notice that the performance degrades for larger matrix sizes that
-// do not fit in the cache. To improve the performance for larger matrices,
-// implement a one level blocking scheme by using BLOCK_SIZE macro as the block
-// size. By partitioning big matrices into smaller blocks that fit in the cache
-// and multiplying these blocks together at a time, we can reduce the number of
-// accesses to main memory. This resolves the main memory bandwidth bottleneck
-// for large matrices and improves performance.
-//
-// NOTE: You can assume that the matrix dimensions are multiples of BLOCK_SIZE.
-//
-//
-// * Experiment with different values for BLOCK_SIZE (use multiples of 4) and
-// measure performance.  What is the optimal value for BLOCK_SIZE?
-//
-//
-// * Now parallelize your matrix-matrix multiplication code using OpenMP.
-//
-//
-// * What percentage of the peak FLOP-rate do you achieve with your code?
-//
-//
-// NOTE: Compile your code using the flag -march=native. This tells the compiler
-// to generate the best output using the instruction set supported by your CPU
-// architecture. Also, try using either of -O2 or -O3 optimization level flags.
-// Be aware that -O2 can sometimes generate better output than using -O3 for
-// programmer optimized code.
 void MMult1(long m, long n, long k, double *a, double *b, double *c) {
-  int numthreads=0;
-  #ifdef _OPENMP
-    #pragma omp parallel
-    {
-      numthreads = omp_get_num_threads();
-    }
-  #endif
-  #pragma omp parallel for num_threads(numthreads)
+  #pragma omp parallel for 
   for (long j = 0; j < n; j+=BLOCK_SIZE) {
     for (long p = 0; p < k; p+=BLOCK_SIZE) {
       for (long i = 0; i < m; i+=BLOCK_SIZE) {
@@ -86,7 +48,7 @@ void MMult1(long m, long n, long k, double *a, double *b, double *c) {
 }
 
 int main(int argc, char** argv) {
-  const long PFIRST = BLOCK_SIZE;
+  const long PFIRST = 10*BLOCK_SIZE;
   const long PLAST = 2000;
   const long PINC = std::max(50/BLOCK_SIZE,1) * BLOCK_SIZE; // multiple of BLOCK_SIZE
 
@@ -116,7 +78,7 @@ int main(int argc, char** argv) {
     }
     double time = t.toc();
     double flops = 1.0e-9*(2.0*m*n*k*NREPEATS/time); 
-    double bandwidth = 1.0e-9*2.0*(m*n + m*n*k)*NREPEATS/time; 
+    double bandwidth = 1.0e-9*2.0*(n * n * n / BLOCK_SIZE + n * n)*NREPEATS/time; 
     printf("%10ld %10f %10f %10f", p, time, flops, bandwidth);
 
     double max_err = 0;

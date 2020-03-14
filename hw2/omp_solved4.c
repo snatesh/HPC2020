@@ -8,7 +8,7 @@
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define N 1000 // decreased so it fits on thread stacks
+#define N 100 // decreased so it fits on thread stacks
 
 int main (int argc, char *argv[]) 
 {
@@ -43,6 +43,7 @@ double a[N][N];
 		*	   exceeds the memory limit for the thread stack.  
     *   - FIX: Decrease the macro variable <N> (done here), or increase OMP_STACKSIZE. 
 	  *		-			 The latter solution might also require one to mess with ulimit (on linux).
-		
+		*
+    *   - NOTE: While this removes the segfault, valgrind will still find at least one error 
 */
 

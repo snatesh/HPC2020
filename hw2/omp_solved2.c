@@ -12,7 +12,7 @@
 int main (int argc, char *argv[]) 
 {
 int nthreads, i, tid;
-double total;
+double total = 0.0;
 
 /*** Spawn parallel region ***/
 #pragma omp parallel private(tid) reduction(+:total) 
@@ -45,7 +45,8 @@ double total;
 		*    last thread to store <tid> and accumulate into <total>.
     *   - FIX: Make <tid> a private variable and <total> a reduction+ variable.
 		*   -      We don't need to initialize <total> to 0, as reduction with +
-		*   -      creates a private copy of <total> initialized to 0 automatically.
+		*   -      creates a private copy of <total> initialized to 0 automatically. I 
+    *   -      it anyway so the compiler doesn't warn us.
 		*   -      The original shared <total> variable is accumulated into with the
 		*   -      private ones. Also, to account for non-associativity of floating point 
 		*   -      addition, we increase the precision of <total> to double.
