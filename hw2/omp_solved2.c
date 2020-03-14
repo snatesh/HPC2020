@@ -40,14 +40,14 @@ double total = 0.0;
 }
 
 /* What went wrong, and how did we fix it?
-		* 1) The variable <total> and <tid> were shared by all threads. So, Line 34 was a
-		*    race condition, and the printed values corresponded to the 
-		*    last thread to store <tid> and accumulate into <total>.
+    * 1) The variable <total> and <tid> were shared by all threads. So, Line 34 was a
+    *    race condition, and the printed values corresponded to the 
+    *    last thread to store <tid> and accumulate into <total>.
     *   - FIX: Make <tid> a private variable and <total> a reduction+ variable.
-		*   -      We don't need to initialize <total> to 0, as reduction with +
-		*   -      creates a private copy of <total> initialized to 0 automatically. I 
+    *   -      We don't need to initialize <total> to 0, as reduction with +
+    *   -      creates a private copy of <total> initialized to 0 automatically. I 
     *   -      it anyway so the compiler doesn't warn us.
-		*   -      The original shared <total> variable is accumulated into with the
-		*   -      private ones. Also, to account for non-associativity of floating point 
-		*   -      addition, we increase the precision of <total> to double.
+    *   -      The original shared <total> variable is accumulated into with the
+    *   -      private ones. Also, to account for non-associativity of floating point 
+    *   -      addition, we increase the precision of <total> to double.
 */
