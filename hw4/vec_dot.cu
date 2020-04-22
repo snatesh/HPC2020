@@ -141,7 +141,6 @@ int main()
   CUDA_Error_Check(cudaDeviceSynchronize());
   printf("GPU Bandwidth = %f GB/s\n", N*sizeof(double) / (omp_get_wtime()-tt)/1e9);
   printf("Error = %lf\n", fabs(c-c_ref));
-  printf("%lf\t%lf\n",c,c_ref);
   // free mem
   CUDA_Error_Check(cudaFree(a_d)); 
   CUDA_Error_Check(cudaFree(b_d)); 

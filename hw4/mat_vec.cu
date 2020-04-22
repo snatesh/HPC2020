@@ -151,7 +151,6 @@ int main()
   // extra memory buffer for reduction across thread-blocks
   for (long i = (N+BLOCK_SIZE-1)/(BLOCK_SIZE); i > 1; \
        i = (i+BLOCK_SIZE-1)/(BLOCK_SIZE)) N_work += i;
-  printf("%ld\n",N_work); 
   double* c_dd; cudaMalloc(&c_dd, N*N_work*sizeof(double)); 
 
   // copy host inputs to device
