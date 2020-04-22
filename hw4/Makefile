@@ -1,5 +1,5 @@
 CCUDA=nvcc
-CUDAFLAGS=-arch=sm_60 -Xcompiler "-fopenmp" -L/usr/lib/x86_64-linux-gnu/ -lcudart -lcudadevrt
+CUDAFLAGS=-arch=sm_35 -Xcompiler "-fopenmp" -lcudart -lcudadevrt
 # NOTE: need to use sm_35 on cims machines 
 
 all: vec_dot mat_vec jacobi2D 
