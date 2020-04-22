@@ -120,7 +120,7 @@ __global__ void mat_vec_kernel(double* c, double* c_d, const double* A, const do
 int main() 
 {
   //const long N = BLOCK_SIZE;
-  const long N = (1UL<<11);
+  const long N = (1UL<<14);
   
   // host copies and initialization
   double *A, *b, *c;
