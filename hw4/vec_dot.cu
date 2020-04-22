@@ -1,8 +1,6 @@
-#include <algorithm>
 #include <stdio.h>
 #include <omp.h>
 #include <math.h>
-#include <iostream>
 
 #define BLOCK_SIZE 1024
 

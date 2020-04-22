@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <stdio.h>
 #include <omp.h>
 #include <math.h>
@@ -162,23 +161,8 @@ int main()
   tt = omp_get_wtime();
 
   mat_vec_kernel<<<N,1>>>(c_d, c_dd, A_d, b_d, N, N_work);
-  //double* sum_d = c_dd;
-  //long Nb = (N+BLOCK_SIZE-1)/(BLOCK_SIZE);
-  //mat_vec_kernel1<<<N*Nb,BLOCK_SIZE>>>(sum_d, A_d, b_d, N);
-  //for (long i = 0; i < N; ++i)
-  //{
-  //  Nb = (N+BLOCK_SIZE-1)/(BLOCK_SIZE);
-  //  double* sum_dd = &c_dd[i];
-  //  while (Nb > 1) 
-  //  {
-  //    long N1 = Nb;
-  //    Nb = (Nb+BLOCK_SIZE-1)/(BLOCK_SIZE);
-  //    reduction<<<Nb,BLOCK_SIZE>>>(sum_dd + N1, sum_dd, N1);
-  //    sum_dd += N1;
-  //  }
-  //}
+
   //// copy device result back to host
-  //CUDA_Error_Check(cudaMemcpyAsync(c, sum_d, N * sizeof(double), cudaMemcpyDeviceToHost));
   CUDA_Error_Check(cudaMemcpyAsync(c, c_d, N * sizeof(double), cudaMemcpyDeviceToHost));
   CUDA_Error_Check(cudaDeviceSynchronize());
 
@@ -197,6 +181,3 @@ int main()
   CUDA_Error_Check(cudaFreeHost(c_ref));
   return 0; 
 }
-
-
-
