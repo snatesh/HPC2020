@@ -1,6 +1,4 @@
-CC=g++
 CCUDA=nvcc
-CFLAGS=-march=native -O2 -fopenmp -I. -DNOPRINT -Wall
 CUDAFLAGS=-arch=sm_60 -Xcompiler "-fopenmp" -L/usr/lib/x86_64-linux-gnu/ -lcudart -lcudadevrt
 # NOTE: need to use sm_35 on cims machines 
 
