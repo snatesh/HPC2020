@@ -1,41 +1,66 @@
 Sachin Natesh - Homework 4 Responses
 
-------------------------------------#### NOTE ####------------------------------------------------
+------------------------------------#### Notes ####-------------------------------------------------------
 
 - For comparing between graphics cards, I use my computer with an NVIDIA GeForce 1060 
-  graphics card with 1280 CUDA cores, and the cuda1/cuda2 cims GPU nodes. 
+  graphics card (1280 CUDA cores), and the cuda1/cuda2/cuda3 cims GPU nodes. 
+
 - Timings for 2D Jacobi are conducted on my machine with 1000 iterations. 
-- In all cases, the CPU time uses an OpenMP implementation with the thread count given by OMP_NUM_THREADS.
+
+- In all tests, the CPU time uses an OpenMP implementation with the thread count given by OMP_NUM_THREADS.
+
 - I'm a CUDA noob and couldn't generalize parallel reduction with dot product to mat-vec without using
   dynamic parallelism features. The performance gains are only seen for large N, and are marginal.
   If N = NUM_BLOCKS = BLOCK_SIZE, there is a simple kernel that gives the same performance as dot product,
   but I have not included it in the code.
-- Because of the last point, the Makefile must use -sm_35 as a flag for nvcc on the cims machines
 
--------------------------#### Dot Product by parallel reduction ####------------------------------
+-------------------------#### Dot Product by parallel reduction N = 2^25 ####------------------------------
+
 My Machine:
-
+  CPU Bandwidth = 14.871513 GB/s
+  GPU Bandwidth = 49.910513 GB/s
+  Error = 0.000000
 
 cuda1:
+  CPU Bandwidth = 14.821633 GB/s
+  GPU Bandwidth = 63.861873 GB/s
+  Error = 0.000000
 
+cuda2:
+  CPU Bandwidth = 12.569415 GB/s
+  GPU Bandwidth = 174.368624 GB/s
+  Error = 0.000000
+
+cuda3:
+  CPU Bandwidth = 9.001908 GB/s
+  GPU Bandwidth = 285.807727 GB/s
+  Error = 0.000000
+
+--------------------#### Matrix Vector Product by *attempted* parallel reduction N = 2^14 ####------------- 
+
+My Machine:
+  CPU Bandwidth = 23.643488 GB/s
+  GPU Bandwidth = 36.818602 GB/s
+  Error = 0.000000
+
+cuda1:
+  CPU Bandwidth = 20.612585 GB/s
+  GPU Bandwidth = 30.044995 GB/s
+  Error = 0.000000
 
 
 cuda2:
+  CPU Bandwidth = 23.889063 GB/s
+  GPU Bandwidth = 78.382466 GB/s
+  Error = 0.000000
+
+cuda3 (using N = 2^12, terrible performance):
+  CPU Bandwidth = 4.812445 GB/s
+  GPU Bandwidth = 0.002560 GB/s
+  Error = 0.000000
 
 
---------------------#### Matrix Vector Product by *attempted* parallel reduction ####------------- 
-My Machine:
-
-
-cuda1:
-
-
-
-cuda2:
-
-
-
--------------------------------------#### 2D Jacobi ####------------------------------------------
+-------------------------------------#### 2D Jacobi for 1000 iterations ####------------------------------------------
 
   N         CPU (s)         GPU (s)         Speedup         Res CPU         Res GPU          Error
  30        0.491777        0.290348         1.69375     0.000152309     0.000152309      1.0328e-09
@@ -49,7 +74,8 @@ cuda2:
 
 
 
-------------------------------------#### Final Project Update ####--------------------------------
+------------------------------------#### Final project update ####--------------------------------
+
 I've made decent progress on my final project. As a reminder, I am implementing spreading and
 interpolation routines to couple forces on lagrangian particles to a uniform Eulerian grid using
 a compactly supported spreading kernel. I haven't run into any issues yet. So far, I've implemented: 
@@ -59,4 +85,6 @@ a compactly supported spreading kernel. I haven't run into any issues yet. So fa
      An array firstn(i,j) gives p_ind, the first particle in column(i,j) of the grid. Then, another
      array nextn(p_ind) gives the next particle in column(i,j).
   2) Gather and scatter operations so that I can exploit auto-vectorization during the spreading
-     and interpolation loops over the columns in each group (all separated by kernel width * grid_spacing) 
+     and interpolation loops, parallelized over the columns in each group (separated by kernel width * h)
+
+ 
