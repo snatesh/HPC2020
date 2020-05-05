@@ -10,5 +10,4 @@ the work per processor was Nl = 200.
 N      | Time (s)
 10^4   | 0.076
 10^5   | 0.197
-10^6   | 
-
+10^6   | job kept exiting with strange errors on Prince
