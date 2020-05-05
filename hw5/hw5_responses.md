@@ -7,7 +7,7 @@ the work per processor was Nl = 200.
 
 ## Timings for parallel sample sort ##
 
-N      | Time (s) <br />
+N        | Time (s) <br />
 10^4   | 0.076    <br />
 10^5   | 0.197    <br />
 10^6   | job kept exiting with strange errors on Prince <br />
