@@ -1,6 +1,6 @@
 ## Strong and weak scaling for Jacobi iteration in MPI ##
 For the strong scaling test, I use N = 4096. For the weak scaling test,
-the work per processor was Nl = 200.
+the work per processor was Nl = 200. The max iterations was 1000.
 ![strong](strong_jacobi.png)
 
 ![strong](weak_jacobi.png)
