@@ -5,7 +5,7 @@
 #SBATCH --tasks-per-node=8
 #SBATCH --time=00:02:00
 #SBATCH --mem=1GB
-#SBATCH --output=256tasks.out
+#SBATCH --output=64tasks.out
 
 /bin/hostname
 /bin/pwd 
